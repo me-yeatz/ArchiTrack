@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArchitectPro - Architecture Project Management</title>
+    <meta name="description"
+        content="Professional architecture project management with Kanban boards, time tracking, and Gantt charts for seamless project coordination.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&family=Syncopate:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="public/icon.svg">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M3 21L12 3L21 21H3Z" stroke="currentColor" stroke-width="2"
+                                stroke-linejoin="round" />
+                            <path d="M7 14H17" stroke="currentColor" stroke-width="1.5" />
+                        </svg>
+                    </div>
+                    <div class="logo-text">
+                        <h1 class="brand-name">ARCHI<span>•</span>TRACK</h1>
+                        <p class="by-yeatz">by yeatz</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-view="kanban">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <rect x="2" y="3" width="5" height="14" rx="1" stroke="currentColor" stroke-width="1.5" />
+                        <rect x="9" y="3" width="5" height="8" rx="1" stroke="currentColor" stroke-width="1.5" />
+                        <rect x="16" y="3" width="2" height="11" rx="1" fill="currentColor" />
+                    </svg>
+                    <span>Kanban Board</span>
+                </button>
+                <button class="nav-item" data-view="gantt">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <rect x="2" y="4" width="8" height="2" rx="1" fill="currentColor" />
+                        <rect x="6" y="8" width="10" height="2" rx="1" fill="currentColor" />
+                        <rect x="2" y="12" width="6" height="2" rx="1" fill="currentColor" />
+                        <rect x="10" y="16" width="8" height="2" rx="1" fill="currentColor" />
+                    </svg>
+                    <span>Gantt Chart</span>
+                </button>
+                <button class="nav-item" data-view="timeline">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.5" />
+                        <path d="M10 6V10L12.5 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                    </svg>
+                    <span>Time Tracking</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <!-- Projects to Complete Section -->
+                <div class="projects-to-complete">
+                    <h3 class="section-title">Projects to Complete</h3>
+                    <div class="project-item">
+                        <div class="project-header">
+                            <span class="project-name">Site Analysis</span>
+                            <input type="checkbox" class="project-checkbox" id="project-1">
+                        </div>
+                        <div class="project-tasks">
+                            <label class="task-checkbox-item">
+                                <input type="checkbox">
+                                <span>Topography study</span>
+                            </label>
+                            <label class="task-checkbox-item">
+                                <input type="checkbox">
+                                <span>Zoning regulations</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="project-item">
+                        <div class="project-header">
+                            <span class="project-name">Design Phase</span>
+                            <input type="checkbox" class="project-checkbox" id="project-2">
+                        </div>
+                        <div class="project-tasks">
+                            <label class="task-checkbox-item">
+                                <input type="checkbox">
+                                <span>Concept sketches</span>
+                            </label>
+                            <label class="task-checkbox-item">
+                                <input type="checkbox">
+                                <span>3D modeling</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Active Tasks</span>
+                        <span class="stat-value" id="active-tasks-count">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Hours</span>
+                        <span class="stat-value" id="total-hours">0h</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="content-header">
+                <button class="mobile-menu-btn" id="btn-mobile-menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" />
+                    </svg>
+                </button>
+                <div class="header-left">
+                    <h2 id="view-title">Kanban Board</h2>
+                    <p class="header-subtitle">Manage your architecture projects efficiently</p>
+                </div>
+                <div class="header-right">
+                    <button class="btn-secondary" id="btn-add-column">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <rect x="2" y="3" width="4" height="10" rx="1" stroke="currentColor" stroke-width="1.5" />
+                            <path d="M10 8h4M12 6v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                        </svg>
+                        Add Column
+                    </button>
+                    <button class="btn-secondary" id="btn-save">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M12 14H4a1 1 0 01-1-1V3a1 1 0 011-1h6l3 3v8a1 1 0 01-1 1z" stroke="currentColor"
+                                stroke-width="1.5" />
+                            <path d="M10 2v4H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                        </svg>
+                        Save
+                    </button>
+                    <button class="btn-primary" id="btn-add-task">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                        Add Task
+                    </button>
+                </div>
+            </header>
+
+            <!-- Kanban View -->
+            <div class="view-container active" id="kanban-view">
+                <div class="kanban-board" id="kanban-board">
+                    <!-- Columns will be dynamically generated -->
+                </div>
+            </div>
+
+            <!-- Gantt View -->
+            <div class="view-container" id="gantt-view">
+                <div class="gantt-controls">
+                    <div class="gantt-zoom">
+                        <button class="zoom-btn" data-zoom="day">Day</button>
+                        <button class="zoom-btn active" data-zoom="week">Week</button>
+                        <button class="zoom-btn" data-zoom="month">Month</button>
+                    </div>
+                    <div class="gantt-date-range">
+                        <span id="gantt-date-range-text">Nov 2025</span>
+                    </div>
+                </div>
+                <div class="gantt-chart" id="gantt-chart">
+                    <!-- Gantt chart will be dynamically generated -->
+                </div>
+            </div>
+
+            <!-- Timeline View -->
+            <div class="view-container" id="timeline-view">
+                <div class="time-tracking-container">
+                    <div class="active-timer-card">
+                        <h3>Active Timer</h3>
+                        <div class="timer-display" id="active-timer-display">00:00:00</div>
+                        <div class="timer-task" id="active-timer-task">No active task</div>
+                        <div class="timer-controls">
+                            <button class="btn-timer-stop" id="btn-stop-timer" disabled>
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                    <rect x="5" y="5" width="10" height="10" fill="currentColor" />
+                                </svg>
+                                Stop Timer
+                            </button>
+                        </div>
+                    </div>
+                    <div class="time-entries-list">
+                        <h3 class="section-title">Recent Time Entries</h3>
+                        <div id="entries-container">
+                            <!-- Time entries will be dynamically generated -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Task Modal -->
+    <div class="modal" id="task-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Add New Task</h3>
+                <button class="modal-close" id="modal-close">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M5 5l10 10M15 5l-10 10" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="task-form">
+                    <div class="form-group">
+                        <label for="task-title">Task Title</label>
+                        <input type="text" id="task-title" placeholder="e.g., Design Floor Plans" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="task-description">Description</label>
+                        <textarea id="task-description" rows="3" placeholder="Add task details..."></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="task-status">Status</label>
+                            <select id="task-status" required>
+                                <option value="backlog">Backlog</option>
+                                <option value="design">Design Phase</option>
+                                <option value="development">Development</option>
+                                <option value="review">Review</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="task-priority">Priority</label>
+                            <select id="task-priority" required>
+                                <option value="low">Low</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="high">High</option>
+                                <option value="critical">Critical</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="task-start-date">Start Date</label>
+                            <input type="date" id="task-start-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="task-end-date">End Date</label>
+                            <input type="date" id="task-end-date" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="task-estimated-hours">Estimated Hours</label>
+                        <input type="number" id="task-estimated-hours" min="0" step="0.5" placeholder="e.g., 40">
+                    </div>
+                    <div class="form-group">
+                        <label for="task-tags">Tags</label>
+                        <input type="text" id="task-tags" placeholder="e.g., Architecture, Design, Planning">
+                        <small>Separate tags with commas</small>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn-secondary" id="btn-cancel">Cancel</button>
+                        <button type="submit" class="btn-primary">Save Task</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

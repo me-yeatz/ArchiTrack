@@ -1,0 +1,16 @@
+{
+  "name": "ARCHI•TRACK",
+  "short_name": "ArchiTrack",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#eef5ff",
+  "theme_color": "#c093a8",
+  "icons": [
+    {
+      "src": "/public/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
